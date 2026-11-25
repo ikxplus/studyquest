@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#080b1a" />
+  <meta name="description" content="StudyQuest — учебный квест: добавляй задачи, выбирай награду, выполняй их и собирай очки. Прогресс сохраняется в браузере." />
+  <title>StudyQuest — твой учебный квест</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="aurora" aria-hidden="true"></div>
+
+  <div class="page-shell">
+    <header class="topbar">
+      <a class="brand" href="#top" aria-label="StudyQuest — наверх">
+        <span class="brand-mark" aria-hidden="true">🚀</span>
+        <span class="brand-name">Study<span>Quest</span></span>
+      </a>
+
+      <div class="topbar-stats" aria-label="Прогресс игрока">
+        <span class="pill pill-level">🎮 Уровень 1</span>
+        <span class="pill pill-score">✨ <strong id="score-value">0</strong> очков</span>
+        <span class="pill pill-wallet">💰 <strong id="balance-value">0</strong></span>
+      </div>
+    </header>
+
+    <main id="top">
+      <section class="hero">
+        <p class="eyebrow"><span class="eyebrow-dot" aria-hidden="true"></span> УЧЕБНЫЙ КВЕСТ · 2026</p>
+        <h1>Учись. Выполняй.<br /><span class="gradient-text">Прокачивайся.</span></h1>
+        <p class="hero-subtitle">
+          Собери день из маленьких побед: добавь задачу, отметь её галочкой
+          и смотри, как растёт твой счёт. Ты справишься 💪
+        </p>
+        <div class="hero-emojis" aria-hidden="true">
+          <span>🎯</span><span>⚡</span><span>🔥</span><span>🏆</span>
+        </div>
+      </section>
+
+      <div class="workspace">
+        <div class="workspace-main">
+          <section class="card composer" aria-labelledby="new-task-title">
+            <div class="card-heading">
+              <span class="card-icon" aria-hidden="true">📝</span>
+              <div>
+                <h2 id="new-task-title">Новая задача</h2>
+                <p class="card-caption">Что хочешь закрыть сегодня?</p>
+              </div>
+            </div>
+
+            <form id="task-form" class="task-form">
+              <label class="field-label" for="task-input">Название задачи</label>
+              <div class="input-wrap">
+                <span class="input-emoji" aria-hidden="true">✏️</span>
+                <input
+                  id="task-input"
+                  name="task"
+                  type="text"
+                  maxlength="120"
+                  autocomplete="off"
+                  placeholder="Например: решить 5 задач по математике"
+                  required
+                />
+              </div>
+
+              <fieldset class="points-picker">
+                <legend>Награда за задачу</legend>
+                <div class="points-options">
+                  <label class="point-option">
+                    <input type="radio" name="points" value="5" />
+                    <span>⭐ 5</span>
+                  </label>
+                  <label class="point-option">
+                    <input type="radio" name="points" value="10" checked />
+                    <span>🔥 10</span>
+                  </label>
+                  <label class="point-option">
+                    <input type="radio" name="points" value="25" />
+                    <span>🚀 25</span>
+                  </label>
+                  <label class="point-option">
+                    <input type="radio" name="points" value="50" />
+                    <span>🏆 50</span>
+                  </label>
+                </div>
+              </fieldset>
+
+              <button class="add-btn" type="submit">
+                <span class="add-btn-icon" aria-hidden="true">➕</span>
+                Добавить задачу
+                <span class="add-btn-arrow" aria-hidden="true">→</span>
+              </button>
+            </form>
+          </section>
+
+          <section class="card tasks-card" aria-labelledby="tasks-title">
+            <div class="card-heading tasks-heading">
+              <div>
+                <h2 id="tasks-title">Мои задачи <span aria-hidden="true">📋</span></h2>
+                <p class="card-caption">Отмечай выполненные — они останутся здесь с галочкой</p>
+              </div>
+              <span class="badge" id="task-counter">0 задач</span>
+            </div>
+
+            <ul class="task-list" id="task-list">
+              <li class="empty-state" id="empty-state">
+                <span class="empty-icon" aria-hidden="true">🎯</span>
+                <h3>Здесь пока пусто</h3>
+                <p>Добавь первую задачу — и начни собирать очки.</p>
+                <span class="empty-hint">Маленький шаг сегодня = большой уровень завтра ✨</span>
+              </li>
+            </ul>
+          </section>
+        </div>
+
+        <aside class="sidebar">
+          <section class="card score-card" aria-labelledby="score-title">
+            <div class="score-glow" aria-hidden="true"></div>
+            <p class="score-label" id="score-title">Твой счёт ✨</p>
+            <div class="score-number">
+              <strong id="score-stat">0</strong>
+              <span>очков</span>
+            </div>
+            <p class="score-caption">Каждая выполненная задача приносит очки 🎉</p>
+
+            <div class="score-divider" aria-hidden="true"></div>
+
+            <div class="mini-stats">
+              <div class="mini-stat">
+                <span class="mini-stat-icon" aria-hidden="true">✅</span>
+                <strong id="completed-stat">0</strong>
+                <small>выполнено</small>
+              </div>
+              <div class="mini-stat">
+                <span class="mini-stat-icon" aria-hidden="true">⏳</span>
+                <strong id="active-stat">0</strong>
+                <small>в работе</small>
+              </div>
+            </div>
+          </section>
+
+          <section class="card quest-card" aria-labelledby="quest-title">
+            <span class="quest-emoji" aria-hidden="true">🏆</span>
+            <h3 id="quest-title">Мини-квест дня</h3>
+            <p>Закрой три задачи и получи звание «Учебный герой».</p>
+            <div class="quest-track" id="quest-track" aria-hidden="true">
+              <span></span><span></span><span></span>
+            </div>
+            <p class="quest-progress" id="quest-progress" role="status" aria-live="polite">Выполнено 0 из 3 задач</p>
+            <p class="quest-badge" id="quest-badge" hidden>🏅 Учебный герой</p>
+            <p class="quest-foot" id="quest-foot">Продолжай в том же духе! 🚀</p>
+          </section>
+        </aside>
+      </div>
+
+      <section class="game-zone" aria-labelledby="game-title">
+        <div class="game-heading">
+          <div>
+            <p class="eyebrow">ТВОЙ ГЕРОЙ · НОВОЕ</p>
+            <h2 id="game-title">Игровая зона 🎮</h2>
+            <p class="card-caption">Трать очки на снаряжение, прокачивай героя и сражайся.</p>
+          </div>
+          <span class="pill pill-wallet">💰 Очки за задачи идут в кошелёк</span>
+        </div>
+
+        <div class="game-grid">
+          <section class="card hero-card" aria-labelledby="hero-title">
+            <span class="hero-avatar" aria-hidden="true">🦸</span>
+            <h3 id="hero-title">Ученик-герой</h3>
+            <div class="power-row">
+              <span class="power-badge">⚔️ Сила <strong id="hero-power">0</strong></span>
+              <span class="training-badge">💪 Тренировок <strong id="hero-training">0</strong></span>
+            </div>
+            <p class="hero-balance">💰 Доступно очков: <strong id="hero-balance">0</strong></p>
+            <p class="card-caption">Инвентарь героя</p>
+            <div class="inventory-list" id="inventory-list"></div>
+          </section>
+
+          <section class="card shop-card" aria-labelledby="shop-title">
+            <h3 id="shop-title">Магазин 🛒</h3>
+            <p class="card-caption">Тратится только кошелёк — общий счёт остаётся.</p>
+            <div class="shop-grid" id="shop-grid"></div>
+            <button class="training-btn" id="training-btn" type="button">Тренировка</button>
+            <p class="game-status" id="shop-status" role="status" aria-live="polite"></p>
+          </section>
+
+          <section class="card battle-card" aria-labelledby="battle-title">
+            <span class="battle-emoji" aria-hidden="true">⚔️</span>
+            <h3 id="battle-title">Бой</h3>
+            <p class="card-caption">Выбери противника. Победишь, если силы хватит.</p>
+            <label class="field-label" for="enemy-select">Противник</label>
+            <select class="enemy-select" id="enemy-select"></select>
+            <button class="battle-btn" id="battle-btn" type="button">Сразиться! 🥊</button>
+            <p class="battle-result" id="battle-result" role="status" aria-live="polite">Выбери противника и нажми «Сразиться!»</p>
+          </section>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      StudyQuest · прогресс сохраняется в этом браузере · учись с удовольствием 😊
+    </footer>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
